@@ -1,0 +1,39 @@
+# General
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.cache/
+.cache/
+*.egg-info/
+dist/
+*.eggs/
+*.eggs/
+*.log
+*.bak
+*.swp
+*.swo
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+.Python
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+*.suo
+*.user
+*.userosscache
+*.dbmdl
+*.cache
+*.jfm
+
+# Jupyter Notebook
+.ipynb_checkpoints
