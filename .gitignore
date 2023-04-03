@@ -23,6 +23,7 @@ ENV/
 env.bak/
 venv.bak/
 .Python
+.python-version
 
 # IDEs
 .vscode/
@@ -37,3 +38,6 @@ venv.bak/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+
+# Databases
+**/*.db
