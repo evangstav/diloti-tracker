@@ -2,10 +2,12 @@ from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session
 from typing import List
 from app.schemas import TeamCreate, PlayerCreate, GameCreate, Team, Player, Game
-from app.database import get_db
+from app.database import get_db, engine, Base
 from app import crud
 
 app = FastAPI()
+
+Base.metadata.create_all(engine)
 
 
 @app.post("/teams/", response_model=Team)
