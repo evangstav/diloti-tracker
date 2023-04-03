@@ -1,8 +1,8 @@
 import streamlit as st
 import requests
 
-API_BASE_URL = "http://localhost:8000"
-# API_BASE_URL = "https://diloti-tracker.herokuapp.com"
+# API_BASE_URL = "http://localhost:8000"
+API_BASE_URL = "https://diloti-tracker.herokuapp.com:8000"
 
 # response = requests.get("https://diloti-tracker-backend.herokuapp.com/games/")
 # print(response.json())
