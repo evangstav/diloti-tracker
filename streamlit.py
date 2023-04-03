@@ -2,6 +2,10 @@ import streamlit as st
 import requests
 
 API_BASE_URL = "http://localhost:8000"
+# API_BASE_URL = "https://diloti-tracker.herokuapp.com"
+
+response = requests.get("https://diloti-tracker-backend.herokuapp.com/games/")
+print(response.json())
 
 
 def fetch_teams():
@@ -33,13 +37,14 @@ st.title("Diloti Tracker")
 
 st.header("Teams")
 teams = fetch_teams()
-for team in teams:
-    st.write(team["name"])
+# for team in teams:
+#     st.write(team["name"])
 
 st.header("Create Team")
 team_name = st.text_input("Team Name")
 player1_name = st.text_input("Player 1 Name")
 player2_name = st.text_input("Player 2 Name")
+
 if st.button("Create Team"):
     team = {
         "name": team_name,
@@ -49,17 +54,12 @@ if st.button("Create Team"):
     created_team = create_team(team)
     st.write(f"Created team {created_team['name']}")
 
-st.header("Players")
-players = fetch_players()
-for player in players:
-    st.write(player["name"])
-
-st.header("Games")
-games = fetch_games()
-for game in games:
-    st.write(
-        f"{game['team1_name']} {game['team1_score']} - {game['team2_name']} {game['team2_score']}"
-    )
+# st.header("Games")
+# games = fetch_games()
+# for game in games:
+#     st.write(
+#         f"{game['team1_name']} {game['team1_score']} - {game['team2_name']} {game['team2_score']}"
+#     )
 
 st.header("Create Game")
 team1_name = st.selectbox("Team 1", [team["name"] for team in teams])
