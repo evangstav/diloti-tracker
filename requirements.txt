@@ -32,4 +32,6 @@ starlette==0.26.1
 tomli==2.0.1
 typing_extensions==4.5.0
 uvicorn==0.21.1
+gunicorn
+gevent
 virtualenv==20.21.0
