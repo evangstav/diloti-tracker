@@ -1,6 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel
-from datetime import date
+from pydantic.types import OptionalDate
 
 
 class TeamBase(BaseModel):
@@ -51,7 +51,7 @@ class GameBase(BaseModel):
     team2_name: str
     team1_score: int
     team2_score: int
-    date: date
+    date: OptionalDate
 
 
 class GameCreate(GameBase):
