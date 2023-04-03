@@ -42,4 +42,4 @@ venv.bak/
 # Databases
 **/*.db
 
-.pyrightconfig.json
+pyrightconfig.json
