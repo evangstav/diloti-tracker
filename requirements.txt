@@ -4,7 +4,6 @@ certifi==2022.12.7
 cfgv==3.3.1
 click==8.1.3
 distlib==0.3.6
-duckdb==0.7.1
 exceptiongroup==1.1.1
 fastapi==0.95.0
 filelock==3.10.7
@@ -34,4 +33,6 @@ typing_extensions==4.5.0
 uvicorn==0.21.1
 gunicorn
 gevent
+mangum
 virtualenv==20.21.0
+psycopg2-binary
