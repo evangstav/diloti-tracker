@@ -1,44 +1,59 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Table, Date
-from sqlalchemy.orm import relationship
 from app.database import Base
+from sqlalchemy import Column, Integer, String, ForeignKey, Table, DateTime
+from sqlalchemy.orm import relationship
+from datetime import datetime
 
-player_team_association = Table(
+# Association table for the many-to-many relationship between players and teams
+player_team = Table(
     "player_team",
     Base.metadata,
-    Column("team_id", String(16), ForeignKey("teams.name")),
-    Column("player_id", String(16), ForeignKey("players.name")),
+    Column("player_id", Integer, ForeignKey("player.id"), primary_key=True),
+    Column("team_id", Integer, ForeignKey("team.id"), primary_key=True),
 )
 
 
-class Team(Base):
-    __tablename__ = "teams"
-
-    # id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String(16), index=True, primary_key=True)
-    players = relationship(
-        "Player", secondary=player_team_association, back_populates="teams"
-    )
-
-
 class Player(Base):
-    __tablename__ = "players"
+    __tablename__ = "player"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String, nullable=False, unique=True)
+    nickname = Column(String, nullable=True)
 
-    # id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String(16), index=True, primary_key=True)
-    teams = relationship(
-        "Team", secondary=player_team_association, back_populates="players"
-    )
+    # Many-to-many relationship with teams
+    teams = relationship("Team", secondary=player_team, back_populates="players")
+
+
+class Team(Base):
+    __tablename__ = "team"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String, nullable=False, unique=True)
+
+    # Many-to-many relationship with players
+    players = relationship("Player", secondary=player_team, back_populates="teams")
 
 
 class Game(Base):
-    __tablename__ = "games"
+    __tablename__ = "game"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    team1_id = Column(Integer, ForeignKey("team.id"))
+    team2_id = Column(Integer, ForeignKey("team.id"))
+    team1_score = Column(Integer, nullable=True)
+    team2_score = Column(Integer, nullable=True)
+    timestamp = Column(DateTime, default=datetime.utcnow)
 
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    team1_name = Column(String(16), ForeignKey("teams.name"))
-    team2_name = Column(String(16), ForeignKey("teams.name"))
-    team1_score = Column(Integer)
-    team2_score = Column(Integer)
-    date = Column(Date)
+    home_team = relationship("Team", foreign_keys=[team1_id])
+    away_team = relationship("Team", foreign_keys=[team2_id])
 
-    team1 = relationship("Team", foreign_keys=[team1_name])
-    team2 = relationship("Team", foreign_keys=[team2_name])
+
+class Score(Base):
+    __tablename__ = "score"
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    game_id = Column(Integer, ForeignKey("game.id"))
+    round = Column(Integer, nullable=False)
+    team_1_score = Column(Integer, nullable=False)
+    team_2_score = Column(Integer, nullable=False)
+    timestamp = Column(DateTime, default=datetime.utcnow)
+
+    game = relationship("Game", back_populates="score")
+
+
+Game.score = relationship("Score", back_populates="game")

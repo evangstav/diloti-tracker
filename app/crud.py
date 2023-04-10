@@ -57,13 +57,22 @@ def get_or_create_player(db: Session, player_name: str):
     return player
 
 
+def get_team_by_name(db: Session, team_name: str):
+    db_team = db.query(DBTeam).filter(DBTeam.name == team_name).first()
+    if db_team is None:
+        raise HTTPException(status_code=404, detail="Team not found")
+    return db_team
+
+
 def create_game(db: Session, game: GameCreate):
+    team1_id = get_team_by_name(db, game.team1_name).id
+    team2_id = get_team_by_name(db, game.team2_name).id
     db_game = DBGame(
-        team1_name=game.team1_name,
-        team2_name=game.team2_name,
+        team1_id=team1_id,
+        team2_id=team2_id,
         team1_score=game.team1_score,
         team2_score=game.team2_score,
-        date=game.date,
+        timestamp=game.timestamp,
     )
     db.add(db_game)
     db.commit()

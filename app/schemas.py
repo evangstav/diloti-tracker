@@ -37,6 +37,7 @@ Player.update_forward_refs()
 
 
 class Team(TeamBase):
+    id: int
     players: Optional[List["Player"]] = []
 
     class Config:
@@ -47,15 +48,19 @@ Team.update_forward_refs()
 
 
 class GameBase(BaseModel):
+    team1_id: str
+    team2_id: str
+    team1_score: int
+    team2_score: int
+    timestamp: OptionalDate
+
+
+class GameCreate(BaseModel):
     team1_name: str
     team2_name: str
     team1_score: int
     team2_score: int
-    date: OptionalDate
-
-
-class GameCreate(GameBase):
-    pass
+    timestamp: OptionalDate
 
 
 class Game(GameBase):
