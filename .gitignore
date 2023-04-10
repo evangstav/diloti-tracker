@@ -43,3 +43,9 @@ venv.bak/
 **/*.db
 
 pyrightconfig.json
+
+# AWS
+.aws-sam/
+
+# env
+.env
