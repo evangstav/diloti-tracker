@@ -1,12 +1,11 @@
-from fastapi.routing import APIRouter
-from fastapi import Depends
-from sqlalchemy.orm import Session
+from typing import List
 
 from app import crud
 from app.database import get_db
 from app.schemas import Player, PlayerCreate
-
-from typing import List
+from fastapi import Depends
+from fastapi.routing import APIRouter
+from sqlalchemy.orm import Session
 
 players_router = APIRouter()
 

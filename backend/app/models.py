@@ -1,7 +1,8 @@
-from app.database import Base
-from sqlalchemy import Column, Integer, String, ForeignKey, Table, DateTime
-from sqlalchemy.orm import relationship
 from datetime import datetime
+
+from app.database import Base
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Table
+from sqlalchemy.orm import relationship
 
 # Association table for the many-to-many relationship between players and teams
 player_team = Table(

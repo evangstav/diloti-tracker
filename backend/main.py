@@ -1,6 +1,6 @@
+from app.database import Base, engine
+from app.routers import games_router, players_router, teams_router
 from fastapi import FastAPI
-from app.database import engine, Base
-from app.routers import teams_router, players_router, games_router
 from mangum import Mangum
 
 app = FastAPI()
