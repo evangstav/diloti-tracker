@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    image: tefteri_backend:latest
+    container_name: tefteri_backend
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_URL=db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=your_password
+      - POSTGRES_DB=mydb
+
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=your_password
+      - POSTGRES_DB=mydb
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+      # - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+
+  # streamlit:
+  #   build:
+  #     context: ./streamlit
+  #     dockerfile: Dockerfile
+  #   image: streamlit_app:latest
+  #   container_name: streamlit_app
+  #   ports:
+  #     - '8501:8501'
+  #   depends_on:
+  #     - fastapi
+  #   environment:
+  #     - FASTAPI_URL=http://fastapi:8000

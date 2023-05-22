@@ -1,7 +1,9 @@
-from sqlalchemy.orm import Session
-from app.schemas import TeamCreate, PlayerCreate, GameCreate
-from app.models import Team as DBTeam, Player as DBPlayer, Game as DBGame
+from app.models import Game as DBGame
+from app.models import Player as DBPlayer
+from app.models import Team as DBTeam
+from app.schemas import GameCreate, PlayerCreate, TeamCreate
 from fastapi import HTTPException
+from sqlalchemy.orm import Session
 
 
 def create_team(db: Session, team: TeamCreate):

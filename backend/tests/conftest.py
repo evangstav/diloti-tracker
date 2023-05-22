@@ -1,12 +1,11 @@
-import pytest
 from pathlib import Path
+
+import pytest
+from app.database import Base, get_db
 from fastapi.testclient import TestClient
+from main import app
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-
-from main import app
-from app.database import Base, get_db
-
 
 TEST_DB_PATH = Path.cwd() / "test.db"
 SQLALCHEMY_DATABASE_URL = f"sqlite:///{TEST_DB_PATH}"
